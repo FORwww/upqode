@@ -1,4 +1,12 @@
+$(window).on('load',function () {
+	$('.loader').css('top', '10%').css('left', '23%').css('width', '5vh').css('height', '5vh');
+	$('.wrap').fadeOut(1200, 'linear');
+	$('html').css('overflow', 'visible');
+
+});
 $(function () {
+
+
 	$(window).resize(function () {
 
 		$('.slider__text').each(function () {
@@ -15,9 +23,49 @@ $(function () {
 	$(window).resize();
 
 
-
 	//this code is for smooth scroll and nav selector
-	$(document).ready(function () {
+
+
+		$(document).ready(function () {
+			$(document).on("scroll", onScroll);
+
+			//smoothscroll
+			$('a[href^="#"]:not(.popup-with-zoom-anim)').on('click', function (e) {
+				e.preventDefault();
+				$(document).off("scroll");
+
+				$('a').each(function () {
+					$(this).removeClass('active');
+				});
+				$(this).addClass('active');
+
+				var target = this.hash,
+					menu = target;
+				$target = $(target);
+				$('html, body').stop().animate({
+					'scrollTop': $target.offset().top + 2
+				}, 500, 'swing', function () {
+					window.location.hash = target;
+					$(document).on("scroll", onScroll);
+				});
+			});
+
+
+		function onScroll(event) {
+			var scrollPos = $(document).scrollTop();
+			$('.navbar-nav>li>a').each(function () {
+				var currLink = $(this);
+				var refElement = $(currLink.attr("href"));
+				if (refElement.position().top <= scrollPos+200 && refElement.position().top + refElement.height() > scrollPos+200) {
+					$('.navbar-nav>li>a').removeClass("active");
+					currLink.addClass("active");
+				} else {
+					currLink.removeClass("active");
+				}
+			});
+		}
+
+
 
 		$('.hamburger').click(function () {
 			$('.hamburger').toggleClass('is-active');
@@ -33,7 +81,7 @@ $(function () {
 		$('#slider2').slick({
 			dots: true,
 			arrows: false,
-			speed: 600,
+			speed: 400,
 			infinite: false,
 			autoplay: true,
 			slidesToShow: 3,
@@ -77,83 +125,100 @@ $(function () {
 		$('.features__item:first-child').css('margin-left','0');
 		$('.features__item:last-child').css('margin-right','0');
 
+		$('ul.sf-menu').superfish();
 
-		(function ( $ ) {
+			$(function () {
+				var jqBar = $('#skill-animate'); // селектор для вашего блока
+				var jqBarStatus = true;
+				$(window).scroll(function() {
+					var scrollEvent = ($(window).scrollTop() > (jqBar.position().top ));
+					if (scrollEvent && jqBarStatus) {
+						jqBarStatus = false;
 
-			$.fn.skillBars = function( options ) {
+						(function ( $ ) {
 
-				var settings = $.extend({
-					from: 0,  			// number start
-					to: false,			// number end
-					speed: 1000,  		// how long it should take to count between the target numbers
-					interval: 100,	  // how often the element should be updated
-					decimals: 0,		  // the number of decimal places to show
-					onUpdate: null,	  // callback method for every time the element is updated,
-					onComplete: null,	  // callback method for when the element finishes updating
-					/*onComplete: function(from) {
-					 console.debug(this);
-					 }*/
-					classes:{
-						skillBarBar : '.skillbar-bar',
-						skillBarPercent : '.skill-bar-percent',
+							$.fn.skillBars = function( options ) {
+
+								var settings = $.extend({
+									from: 0,  			// number start
+									to: false,			// number end
+									speed: 1000,  		// how long it should take to count between the target numbers
+									interval: 100,	  // how often the element should be updated
+									decimals: 0,		  // the number of decimal places to show
+									onUpdate: null,	  // callback method for every time the element is updated,
+									onComplete: null,	  // callback method for when the element finishes updating
+									/*onComplete: function(from) {
+									 console.debug(this);
+									 }*/
+									classes:{
+										skillBarBar : '.skillbar-bar',
+										skillBarPercent : '.skill-bar-percent'
+									}
+								}, options );
+
+								return this.each(function(){
+
+									var obj = $(this),
+										to = (settings.to != false) ? settings.to : parseInt(obj.attr('data-percent'));
+									if(to > 100){
+										to = 100;
+									};
+									var from = settings.from,
+										loops = Math.ceil(settings.speed / settings.interval),
+										increment = (to - from) / loops,
+										loopCount = 0,
+										interval = setInterval(updateValue, settings.interval);
+
+									obj.find(settings.classes.skillBarBar).animate({
+										width: parseInt(obj.attr('data-percent'))+'%'
+									}, settings.speed);
+
+									function updateValue(){
+										from += increment;
+										loopCount++;
+										$(obj).find(settings.classes.skillBarPercent).text(from.toFixed(settings.decimals)+'%');
+
+										if (typeof(settings.onUpdate) == 'function') {
+											settings.onUpdate.call(obj, from);
+										}
+
+										if (loopCount >= loops) {
+											clearInterval(interval);
+											from = to;
+
+											if (typeof(settings.onComplete) == 'function') {
+												settings.onComplete.call(obj, from);
+											}
+										}
+									}
+
+								});
+
+							};
+
+						})( jQuery );
+
+						$('.skillbar').skillBars({
+							from: 0,
+							speed: 8000,
+							interval: 100,
+							decimals: 0
+						});
 					}
-				}, options );
-
-				return this.each(function(){
-
-					var obj = $(this),
-						to = (settings.to != false) ? settings.to : parseInt(obj.attr('data-percent'));
-					if(to > 100){
-						to = 100;
-					};
-					var from = settings.from,
-						loops = Math.ceil(settings.speed / settings.interval),
-						increment = (to - from) / loops,
-						loopCount = 0,
-						interval = setInterval(updateValue, settings.interval);
-
-					obj.find(settings.classes.skillBarBar).animate({
-						width: parseInt(obj.attr('data-percent'))+'%'
-					}, settings.speed);
-
-					function updateValue(){
-						from += increment;
-						loopCount++;
-						$(obj).find(settings.classes.skillBarPercent).text(from.toFixed(settings.decimals)+'%');
-
-						if (typeof(settings.onUpdate) == 'function') {
-							settings.onUpdate.call(obj, from);
-						}
-
-						if (loopCount >= loops) {
-							clearInterval(interval);
-							from = to;
-
-							if (typeof(settings.onComplete) == 'function') {
-								settings.onComplete.call(obj, from);
-							}
-						}
-					}
-
 				});
-
-			};
-
-		}( jQuery ));
+			});
 
 
 
-		$('.skillbar').skillBars({
-			from: 0,
-			speed: 3000,
-			interval: 100,
-			decimals: 0,
-		});
+
+
+
+
 
 		var map = new GMaps({
 			div: '#map',
 			lat: 49.843305,
-			lng: 24.026609,
+			lng: 24.026609
 		});
 		map.addMarker({
 			lat: 49.843305,
@@ -165,42 +230,8 @@ $(function () {
 		});
 
 
-		$(document).on("scroll", onScroll);
-
-		//smoothscroll
-		$('a[href^="#"]').on('click', function (e) {
-			e.preventDefault();
-			$(document).off("scroll");
-
-			$('a').each(function () {
-				$(this).removeClass('active');
-			});
-			$(this).addClass('active');
-
-			var target = this.hash,
-				menu = target;
-			$target = $(target);
-			$('html, body').stop().animate({
-				'scrollTop': $target.offset().top + 2
-			}, 500, 'swing', function () {
-				window.location.hash = target;
-				$(document).on("scroll", onScroll);
-			});
-		});
 	});
-	function onScroll(e) {
-		var scrollPos = $(document).scrollTop();
-		$('.navbar-nav li a').each(function () {
-			var currLink = $(this);
-			var refElement = $(currLink.attr("href"));
-			if (refElement.position().top <= scrollPos+200 && refElement.position().top + refElement.height() > scrollPos+200) {
-				$('.navbar-nav li a').removeClass("active");
-				currLink.addClass("active");
-			} else {
-				currLink.removeClass("active");
-			}
-		});
-	}
+
 
 	$(window).resize();
 

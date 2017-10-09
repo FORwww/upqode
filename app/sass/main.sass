@@ -18,6 +18,123 @@
 	color: #666
 	opacity: 1
 
+.wrap
+	width: 100%
+	height: 100%
+	background: #fff
+	position: fixed
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+	overflow: auto
+	z-index: 100000000
+
+.loader
+	transition: 0.5s
+	z-index: 100000
+	position: absolute
+	width: 20vh
+	height: 20vh
+	top: 50%
+	left: 50%
+	margin-top: -10vh
+	margin-left: -10vh
+	-webkit-perspective: 60vh
+	perspective: 60vh
+	&:before, &:after
+		content: " "
+		position: absolute
+		width: 100%
+		height: 100%
+		border-radius: 50%
+	&:before
+		left: -13.333333333333334vh
+		background: -webkit-linear-gradient(315deg, $accent-color, lighten($accent-color, 20%))
+		background: linear-gradient(135deg, $accent-color, lighten($accent-color, 20%))
+		-webkit-transform: translateZ(0vh)
+		transform: translateZ(0vh)
+		z-index: 1
+		-webkit-animation: rotation1 1.5s ease-out infinite
+		animation: rotation1 1.5s ease-out infinite
+	&:after
+		right: -13.333333333333334vh
+		background: -webkit-linear-gradient(315deg, $default-color, lighten($default-color, 20%))
+		background: linear-gradient(135deg, $default-color, lighten($default-color, 20%))
+		-webkit-transform: translateZ(0vh)
+		transform: translateZ(0vh)
+		z-index: 1
+		-webkit-animation: rotation2 1.5s ease-out infinite
+		animation: rotation2 1.5s ease-out infinite
+
+@-webkit-keyframes rotation1
+	25%
+		left: 0
+		-webkit-transform: translateZ(-10vh)
+		transform: translateZ(-10vh)
+
+	50%
+		left: 13.333333333333334vh
+		-webkit-transform: translateZ(0vh)
+		transform: translateZ(0vh)
+
+	75%
+		left: 0
+		-webkit-transform: translateZ(20vh)
+		transform: translateZ(20vh)
+		z-index: 2
+
+@keyframes rotation1
+	25%
+		left: 0
+		-webkit-transform: translateZ(-10vh)
+		transform: translateZ(-10vh)
+
+	50%
+		left: 13.333333333333334vh
+		-webkit-transform: translateZ(0vh)
+		transform: translateZ(0vh)
+
+	75%
+		left: 0
+		-webkit-transform: translateZ(20vh)
+		transform: translateZ(20vh)
+		z-index: 2
+
+@-webkit-keyframes rotation2
+	25%
+		right: 0
+		-webkit-transform: translateZ(20vh)
+		transform: translateZ(20vh)
+		z-index: 2
+
+	50%
+		right: 13.333333333333334vh
+		-webkit-transform: translateZ(0vh)
+		transform: translateZ(0vh)
+
+	75%
+		right: 0
+		-webkit-transform: translateZ(-10vh)
+		transform: translateZ(-10vh)
+
+@keyframes rotation2
+	25%
+		right: 0
+		-webkit-transform: translateZ(20vh)
+		transform: translateZ(20vh)
+		z-index: 2
+
+	50%
+		right: 13.333333333333334vh
+		-webkit-transform: translateZ(0vh)
+		transform: translateZ(0vh)
+
+	75%
+		right: 0
+		-webkit-transform: translateZ(-10vh)
+		transform: translateZ(-10vh)
+
 body input:focus:required:invalid,
 body textarea:focus:required:invalid
 	color: #666
@@ -28,6 +145,9 @@ body textarea:required:valid
 
 html, body
 	height: 100%
+
+html
+	overflow: auto
 
 body
 	font-size: 16px
@@ -143,13 +263,70 @@ input
 
 .nav-item
 	line-height: 70px
-	margin: 0 27px
+//margin: 0 27px
+.sf-arrows .sf-with-ul:after
+	border-top-color: rgba(0, 0, 0, 0.51)
+
+.sf-menu a
+	border: none
+
+.sf-arrows .sf-with-ul
+	padding-right: 30px
+
+.navbar-nav
+	.nav-item:hover
+		.nav-item__submenu
+			display: block
+
+.nav-item__submenu
+	display: none
+	position: absolute
+	padding: 0
+	width: auto
+	top: 70px
+	left: 0
+	background-color: transparent
+	border-top: 2px solid $accent-two-color
+	li
+		position: relative
+		width: 100%
+		display: block
+		a
+			white-space: nowrap
+			line-height: 1.75
+			padding: 20px
+			padding-left: 30px
+			transition: 0.5s
+			display: block
+			color: #fdfdfd
+			background-color: #000000
+			opacity: 0.65
+			font: 14px "Lato-Light"
+			text-decoration: none
+			&:before
+				position: absolute
+				left: 18px
+				content: "\f105"
+				font-family: "FontAwesome"
+			&:hover
+				text-decoration: none
+				color: $accent-two-color
+				&:before
+					content: "\f101"
+
+.sf-menu
+	margin: 0
+	a
+		display: inline
+	li
+		&:hover
+			background: transparent
+		background: transparent
 
 .nav-link
 	color: #232323
 	&:hover
-		color: lighten($default-color, 20%)
-		font-family: "Lato-Bold"
+		text-shadow: 0px 0px 1px rgba(0, 0, 0, 1)
 
 .hamburger
 	height: 70px
@@ -350,7 +527,6 @@ input
 		padding: 0 20px 15px
 	.features__text_hover
 		display: none
-		transition: .5s
 		padding: 20px
 		position: absolute
 		top: -10px

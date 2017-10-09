@@ -31,6 +31,8 @@ gulp.task('js', ['common-js'], function() {
 		'app/libs/bootstrap/dist/js/bootstrap.min.js',
 		'app/libs/slick/slick/slick.js',
 		'app/libs/matchHeight/dist/jquery.matchHeight-min.js',
+		'app/libs/superfish/dist/js/superfish.js',
+		'app/libs/wow/dist/wow.js',
 		'app/libs/gmaps/gmaps.js',
 		'app/js/common.min.js'
 		])
@@ -77,6 +79,7 @@ gulp.task('build', ['removedist', 'imagemin', 'sass', 'js'], function() {
 
 	var buildFiles = gulp.src([
 		'app/*.html',
+		'app/*.php',
 		'app/.htaccess',
 		]).pipe(gulp.dest('dist'));
 

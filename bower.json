@@ -19,6 +19,8 @@
     "jquery": "^3.2.1",
     "bootstrap": "^3.3.7",
     "matchHeight": "^0.7.2",
-    "gmaps": "^0.4.25"
+    "gmaps": "^0.4.25",
+    "superfish": "^1.7.9",
+    "wow": "^1.1.2"
   }
 }
