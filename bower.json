@@ -1,0 +1,24 @@
+{
+  "name": "upqode",
+  "description": "test",
+  "main": "index.js",
+  "authors": [
+    "Oleh Fostyak"
+  ],
+  "license": "ISC",
+  "homepage": "index.html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/libs/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "bootstrap": "^3.3.7",
+    "matchHeight": "^0.7.2",
+    "gmaps": "^0.4.25"
+  }
+}

@@ -1,0 +1,24 @@
+.products__title .overlay{
+	padding-bottom: 0
+}
+
+.search {
+	width: 28%;
+	padding: 0 52px 0 0;
+}
+.search {
+	border: 1px solid #DFDFDF;
+	border-top: 1px solid #B3B3B3;
+	padding-top: 7px;
+	padding-bottom: 8px;
+}
+.search:focus {
+	border: 1px solid #CFCFCF;
+	border-top: 1px solid #999;
+}
+.search .submit {
+	opacity: 0;
+}
+.search .submit:hover {
+	opacity: 0;
+}
