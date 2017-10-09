@@ -253,7 +253,8 @@ $(function () {
 	var aboutImg = $('.about__img img').outerHeight(true);
 	$('.about__img').css('height', aboutImg);
 
-
+	var formHeight = $('.form').outerHeight(true);
+	$('.send').css('height', formHeight);
 
 });
 
