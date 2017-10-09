@@ -26,14 +26,16 @@ $(function () {
 		$('#slider1').slick({
 			dots: true,
 			infinite: true,
+			speed: 400,
 			autoplay: true
 		});
 
 		$('#slider2').slick({
 			dots: true,
 			arrows: false,
+			speed: 600,
 			infinite: false,
-			// autoplay: true,
+			autoplay: true,
 			slidesToShow: 3,
 			slidesToScroll: 3,
 			responsive: [
