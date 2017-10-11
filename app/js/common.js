@@ -5,7 +5,7 @@ $(window).on('load',function () {
 
 });
 $(function () {
-
+	$('html').css('overflow', 'visible');
 
 	$(window).resize(function () {
 
